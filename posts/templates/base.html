@@ -1,0 +1,25 @@
+{% load static %}
+<html>
+  <head>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+    <title>GhostPost</title>
+  </head>
+  <body>
+    <header>
+      <h1 class="page-title">
+        GhostPost
+      </h1>
+    </header>
+    <div class="page-content">
+      {% block content %} {% endblock %}
+    </div>
+    <hr />
+    <p class="footer">
+      Kano Marvel, 2020
+      <br />
+      Find me on <a href="https://github.com/knmarvel">Github</a>
+      <br />
+      background pic from <a href="https://creepypasta.fandom.com/wiki/The_Cemetery">creepypasta</a>
+    </p>
+  </body>
+</html>

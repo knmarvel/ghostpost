@@ -1,3 +1,7 @@
 from django.shortcuts import render
+from posts.forms import GhostPostForm
 
-# Create your views here.
+
+def index(request):
+    html = "index.html"
+    return render(request, html)

@@ -1,0 +1,27 @@
+html {
+    background-image: url("http://www.vignette2.wikia.nocookie.net/creepypasta/images/8/80/Creepycemetery.jpg/revision/latest?cb=20131013135547");
+}
+
+.page-title {
+    color: rgb(201, 201, 201);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: rgb(59, 59, 59);
+    width: 5.5em;
+}
+
+.page-content {
+    background-color: rgba(201, 201, 201, 75%);
+    color: rgb(33, 33, 33);
+}
+
+.footer {
+    color: rgb(201, 201, 201);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: rgb(59, 59, 59);
+    width: 10em;
+}
+
+.footer a {
+    color: white;
+    font-weight: bold;
+}
