@@ -1,0 +1,11 @@
+Metadata-Version: 1.2
+Name: ghostpost
+Version: 0.1.0
+Summary: The GhostPost Machine™ is a website where people can anonymously post Boasts or Roasts of whatever they want. Like most services, there is a character limit: 280 characters. We are deliberately not dealing with logins, as that is outside the scope of the project (and beyond our time constraints)
+Home-page: UNKNOWN
+Author: Kano Marvel
+Author-email: knmarvel@gmail.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.8,<4.0
