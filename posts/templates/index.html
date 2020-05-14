@@ -1,4 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
     <h2 class="hi">Hello there!</h2>
+    <div class="ghost-post-form">
+    <form action="" method="post">
+        {% csrf_token %} {{ empty_form.as_p }}
+    <input type="submit" value="Submit!" />
+    </div>
+    </form>
+    <div class="ghost-posts">
+        {% if ghost_posts %}
+            {% for post in ghost_posts %}
+            <div class="post-div">
+            <span class="post-score"> {{ post.score }} </span>
+            <span class="post-type-{{post.boast}}"">{% if post.boast %} BOAST {% else %} ROAST {% endif %} </span>
+            <span class="post-text">{{ post }}</span>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
 {% endblock %} 

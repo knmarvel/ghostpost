@@ -6,7 +6,7 @@ class GhostPostForm(forms.Form):
         (True, "BOAST"),
         (False, "ROAST")
     ]
-    boast: forms.ChoiceField(
+    boast = forms.ChoiceField(
         widget=forms.RadioSelect,
         choices=BOAST_ROAST_CHOICES
     )
