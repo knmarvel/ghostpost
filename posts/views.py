@@ -8,7 +8,20 @@ from posts.helpers import private_url_maker
 def index(request):
     html = "index.html"
     empty_form = GhostPostForm()
+    print(request.path)
     ghost_posts = GhostPost.objects.all()
+    if "boasts" in request.path:
+        ghost_posts = ghost_posts.filter("boast"==True)
+    if "roasts" in request.path:
+        ghost_posts = ghost_posts.filter("boast"==False)
+    if "newest" in request.path:
+        ghost_posts = ghost_posts.order_by("-datetime")
+    if "oldest" in request.path:
+        ghost_posts = ghost_posts.order_by("datetime")
+    if "top" in request.path:
+        ghost_posts = sorted(ghost_posts, key=lambda x: -x.score())
+    if "bottom" in request.path:
+        ghost_posts = sorted(ghost_posts, key=lambda x: x.score())
     if request.method == "POST":
         form = GhostPostForm(request.POST)
         if form.is_valid():
@@ -26,9 +39,9 @@ def index(request):
                 private_url=private_url,
                 datetime=datetime
             )
-            return render(request, html, {"empty_form": empty_form, "ghost_posts": ghost_posts, "private_url": private_url})
+            return render(request, html, {"current_path": request.path, "empty_form": empty_form, "ghost_posts": ghost_posts, "private_url": private_url})
 
-    return render(request, html, {"empty_form": empty_form, "ghost_posts": ghost_posts})
+    return render(request, html, {"current_path": request.path, "empty_form": empty_form, "ghost_posts": ghost_posts})
 
 
 def ghostpost_public_detail(request, pk):

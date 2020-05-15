@@ -14,6 +14,3 @@ class GhostPostForm(forms.Form):
 
     def __str__(self):
         return self.text
-
-class UpvoteForm(forms.Form):
-    pass
