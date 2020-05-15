@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse, HttpResponseRedirect
 from posts.forms import GhostPostForm
 from posts.models import GhostPost
-from posts.helpers import public_url_maker, private_url_maker
+from posts.helpers import private_url_maker
 
 
 def index(request):
@@ -13,18 +13,44 @@ def index(request):
         if form.is_valid():
             boast = form.cleaned_data.get("boast")
             text = form.cleaned_data.get("text")
-            upvotes = 1
+            upvotes = 0
             downvotes = 0
-            public_url = public_url_maker(text)
-            private_url = private_url_maker(text)
+            private_url = private_url_maker()
             GhostPost.objects.create(
                 boast=boast,
                 text=text,
                 upvotes=upvotes,
                 downvotes=downvotes,
-                public_url=public_url,
                 private_url=private_url
             )
             return render(request, html, {"empty_form": empty_form, "ghost_posts": ghost_posts})
 
     return render(request, html, {"empty_form": empty_form, "ghost_posts": ghost_posts})
+
+
+def ghostpost_public_detail(request, pk):
+    html = "ghostpost_detail.html"
+    ghostpost = GhostPost.objects.get(pk=pk)
+    private = False
+    return render(request, html, {"ghostpost": ghostpost, "private": private})
+
+
+def ghostpost_private_detail(request, private_url):
+    html = "ghostpost_detail.html"
+    ghostpost = GhostPost.objects.get(private_url=private_url)
+    private = True
+    return render(request, html, {"ghostpost": ghostpost, "private": private})
+
+
+def upvote_view(request, pk):
+    post = GhostPost.objects.get(id=pk)
+    post.upvotes += 1
+    post.save()
+    return HttpResponseRedirect(reverse("ghostpost_public_detail", kwargs={"pk": pk}))
+
+
+def downvote_view(request, pk):
+    post = GhostPost.objects.get(id=pk)
+    post.downvotes += 1
+    post.save()
+    return HttpResponseRedirect(reverse("ghostpost_public_detail", kwargs={"pk": pk}))

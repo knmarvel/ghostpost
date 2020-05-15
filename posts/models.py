@@ -7,11 +7,10 @@ class GhostPost(models.Model):
     text = models.CharField(max_length=200)
     upvotes = models.IntegerField(default=0)
     downvotes = models.IntegerField(default=0)
-    public_url = models.CharField(max_length=20)
     private_url = models.CharField(max_length=6)
 
     def __str__(self):
         return self.text
     
     def score(self):
-        return self.upvotes - self.downvotes
+        return (self.upvotes - self.downvotes)

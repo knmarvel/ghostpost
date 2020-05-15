@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="post-div-{{post.boast}}">
+    {{ghostpost.pk}}
+    {% if private %}
+    <h2>PRIVATE!!!!</h2>
+    {% endif %}
+    <span class="upvote-button"><a href="{% url 'upvotes' pk=ghostpost.pk %}">Upvote</a></span>
+    <span class="downvote-button"><a href="{% url 'downvotes' pk=ghostpost.pk %}">Downvote</a></span>
+    <span class="post-score"> {{ ghostpost.score }} </span>
+    <span class="post-type-{{ghostpost.boast}}"">{% if ghostpost.boast %} BOAST {% else %} ROAST {% endif %} </span>
+    <span class="post-text">{{ ghostpost }}</span>
+    </div>
+{% endblock %} 

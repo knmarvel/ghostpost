@@ -1,16 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
     <h2 class="hi">Hello there!</h2>
+    <h3>Make a ghost post:</h3>
     <div class="ghost-post-form">
     <form action="" method="post">
         {% csrf_token %} {{ empty_form.as_p }}
-    <input type="submit" value="Submit!" />
+    <input type="submit" value="Post, ghost!" />
     </div>
     </form>
     <div class="ghost-posts">
         {% if ghost_posts %}
             {% for post in ghost_posts %}
-            <div class="post-div">
+            <div class="post-div-{{post.boast}}">
+            <a href="{% url 'ghostpost_public_detail' pk=post.pk %}"> {{post.pk}} </a>
+            <h2> {{post.private_url }} </h2>
             <span class="post-score"> {{ post.score }} </span>
             <span class="post-type-{{post.boast}}"">{% if post.boast %} BOAST {% else %} ROAST {% endif %} </span>
             <span class="post-text">{{ post }}</span>

@@ -14,6 +14,18 @@ html {
     color: rgb(33, 33, 33);
 }
 
+.post-div-True{
+    background-color: rgba(201, 201, 201, 75%);
+    color: blue;
+}
+
+.post-div-False{
+    background-color: rgba(201, 201, 201, 75%);
+    color: purple;
+}
+.post-type-False, .post-type-True {
+    font-weight: bolder;
+}
 .footer {
     color: rgb(201, 201, 201);
     font-family: Georgia, 'Times New Roman', Times, serif;
