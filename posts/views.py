@@ -1,4 +1,5 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
+from datetime import datetime as dt
 from posts.forms import GhostPostForm
 from posts.models import GhostPost
 from posts.helpers import private_url_maker
@@ -16,12 +17,14 @@ def index(request):
             upvotes = 0
             downvotes = 0
             private_url = private_url_maker()
+            datetime = dt.now()
             GhostPost.objects.create(
                 boast=boast,
                 text=text,
                 upvotes=upvotes,
                 downvotes=downvotes,
-                private_url=private_url
+                private_url=private_url,
+                datetime=datetime
             )
             return render(request, html, {"empty_form": empty_form, "ghost_posts": ghost_posts, "private_url": private_url})
 

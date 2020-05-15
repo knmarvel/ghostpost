@@ -18,8 +18,8 @@
         {% if ghost_posts %}
             {% for post in ghost_posts %}
             <div class="post-div-{{post.boast}}">
-            <a href="{% url 'ghostpost_public_detail' pk=post.pk %}"> {{post.pk}} </a>
-            
+            <a href="{% url 'ghostpost_public_detail' pk=post.pk %}"> {{ post.pk }} </a>
+            <span class="post-datetime">{{ post.datetime }}</span>
             <span class="post-score"> {{ post.score }} </span>
             <span class="post-type-{{post.boast}}"">{% if post.boast %} BOAST {% else %} ROAST {% endif %} </span>
             <span class="post-text">{{ post }}</span>
