@@ -23,7 +23,7 @@ def index(request):
                 downvotes=downvotes,
                 private_url=private_url
             )
-            return render(request, html, {"empty_form": empty_form, "ghost_posts": ghost_posts})
+            return render(request, html, {"empty_form": empty_form, "ghost_posts": ghost_posts, "private_url": private_url})
 
     return render(request, html, {"empty_form": empty_form, "ghost_posts": ghost_posts})
 
@@ -54,3 +54,9 @@ def downvote_view(request, pk):
     post.downvotes += 1
     post.save()
     return HttpResponseRedirect(reverse("ghostpost_public_detail", kwargs={"pk": pk}))
+
+
+def delete_post(request, private_url):
+    deleted = GhostPost.objects.get(private_url=private_url).delete()
+    return HttpResponseRedirect(reverse("homepage"))
+

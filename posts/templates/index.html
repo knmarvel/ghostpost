@@ -9,11 +9,17 @@
     </div>
     </form>
     <div class="ghost-posts">
+        {% if private_url %}
+            <span class="private_url_announcement"> 
+                Please note: to delete your most recent post, go to <a href="ghostpost/{{ private_url }}">ghostpost/{{ private_url }}</a>
+                This message will disappear after any action on this page, so if you're the sort to have regrets, write that url down now.
+            </span>
+            {% endif %}
         {% if ghost_posts %}
             {% for post in ghost_posts %}
             <div class="post-div-{{post.boast}}">
             <a href="{% url 'ghostpost_public_detail' pk=post.pk %}"> {{post.pk}} </a>
-            <h2> {{post.private_url }} </h2>
+            
             <span class="post-score"> {{ post.score }} </span>
             <span class="post-type-{{post.boast}}"">{% if post.boast %} BOAST {% else %} ROAST {% endif %} </span>
             <span class="post-text">{{ post }}</span>
