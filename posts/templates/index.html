@@ -18,11 +18,13 @@
         {% if ghost_posts %}
             {% for post in ghost_posts %}
             <div class="post-div-{{post.boast}}">
-            <a href="{% url 'ghostpost_public_detail' pk=post.pk %}"> {{ post.pk }} </a>
+            
+            <span class="upvote-button"><a href="{% url 'upvotes' pk=post.pk %}">Upvote</a></span>
+            <span class="downvote-button"><a href="{% url 'downvotes' pk=post.pk %}">Downvote</a></span>
             <span class="post-datetime">{{ post.datetime }}</span>
             <span class="post-score"> {{ post.score }} </span>
             <span class="post-type-{{post.boast}}"">{% if post.boast %} BOAST {% else %} ROAST {% endif %} </span>
-            <span class="post-text">{{ post }}</span>
+            <span class="post-text"><a href="{% url 'ghostpost_public_detail' pk=post.pk %}"> {{ post.text }} </a></span>
             </div>
             {% endfor %}
         {% endif %}

@@ -5,8 +5,8 @@
     {% if private %}
     <h2 class="delete_post">TO DELETE THIS POST, <a href="{% url 'delete' private_url=ghostpost.private_url%}">CLICK HERE</a></a></h2>
     {% endif %}
-    <span class="upvote-button"><a href="{% url 'upvotes' pk=ghostpost.pk %}">Upvote</a></span>
-    <span class="downvote-button"><a href="{% url 'downvotes' pk=ghostpost.pk %}">Downvote</a></span>
+    <span class="upvote-button"><a href="{% url 'upvotes_detail' pk=ghostpost.pk %}">Upvote</a></span>
+    <span class="downvote-button"><a href="{% url 'downvotes_detail' pk=ghostpost.pk %}">Downvote</a></span>
     <span class="post-score"> {{ ghostpost.score }} </span>
     <span class="post-type-{{ghostpost.boast}}"">{% if ghostpost.boast %} BOAST {% else %} ROAST {% endif %} </span>
     <span class="post-text">{{ ghostpost }}</span>

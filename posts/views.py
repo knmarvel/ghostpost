@@ -49,10 +49,24 @@ def upvote_view(request, pk):
     post = GhostPost.objects.get(id=pk)
     post.upvotes += 1
     post.save()
-    return HttpResponseRedirect(reverse("ghostpost_public_detail", kwargs={"pk": pk}))
+    return HttpResponseRedirect(reverse("homepage"))
 
 
 def downvote_view(request, pk):
+    post = GhostPost.objects.get(id=pk)
+    post.downvotes += 1
+    post.save()
+    return HttpResponseRedirect(reverse("homepage"))
+
+
+def upvote_detail_view(request, pk):
+    post = GhostPost.objects.get(id=pk)
+    post.upvotes += 1
+    post.save()
+    return HttpResponseRedirect(reverse("ghostpost_public_detail", kwargs={"pk": pk}))
+
+
+def downvote_detail_view(request, pk):
     post = GhostPost.objects.get(id=pk)
     post.downvotes += 1
     post.save()
@@ -62,4 +76,3 @@ def downvote_view(request, pk):
 def delete_post(request, private_url):
     deleted = GhostPost.objects.get(private_url=private_url).delete()
     return HttpResponseRedirect(reverse("homepage"))
-
