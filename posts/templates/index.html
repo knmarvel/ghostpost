@@ -18,7 +18,7 @@
     
 {% endif %}
 </div>
-    <div class="ghost-posts">
+    <div class="ghostpost-content">
 
         <br />
         <div class="sort-and-filter-buttons">
@@ -26,24 +26,25 @@
                 <li class='{% if current_path == "/" %}selected-tab {% endif %} filter-tab'>
                     <a href="/" >All</a>
                 </li>
-                <li class='{% if current_path == "/roasts" %}selected-tab {% endif %} filter-tab'>
+                <li class='{% if current_path == "/roasts/" %}selected-tab {% endif %} filter-tab'>
                     <a href="/roasts" >Roasts</a>
                 </li>
-                <li class='{% if current_path == "/boasts" %}selected-tab {% endif %} filter-tab'>
+                <li class='{% if current_path == "/boasts/" %}selected-tab {% endif %} filter-tab'>
                     <a href="/boasts">Boasts</a>
                 </li>
             </ul>
-            <form action="" method="post">
+            <form class="sort-form" action="" method="post">
                 {% csrf_token %} {{ sort_form }}
             <input type="submit" value="Sort posts" />
             </form>
         </div>
+        <div class="ghostposts">
         {% if ghost_posts %}
             {% for post in ghost_posts %}
-            <div class="post-div-{{post.boast}}">
+            <div class="post-div {{post.boast}}">
             
-            <button class="upvote-button"><a href="{% url 'upvotes' pk=post.pk %}">Upvote</a></button>
-            <button class="downvote-button"><a href="{% url 'downvotes' pk=post.pk %}">Downvote</a></button>
+            <button class="upvote-button"><a href="{% url 'upvotes' pk=post.pk %}">&#x2B06;</a></button>
+            <button class="downvote-button"><a href="{% url 'downvotes' pk=post.pk %}">&#x2B07;</a></button>
             <span class="post-datetime">{{ post.datetime }}</span>
             <span class="post-score"> {{ post.score }} </span>
             <span class="post-type-{{post.boast}}"">{% if post.boast %} BOAST {% else %} ROAST {% endif %} </span>
@@ -51,5 +52,6 @@
             </div>
             {% endfor %}
         {% endif %}
+        </div>
     </div>
 {% endblock %} 
