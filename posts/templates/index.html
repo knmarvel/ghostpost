@@ -10,8 +10,10 @@
     </div>
     {% if private_url %}
     <span class="private-url-announcement"> 
+        <h4>
         Please note: to delete your most recent post, go to <a href="ghostpost/{{ private_url }}">ghostpost/{{ private_url }}</a>
         This message will disappear after any action on this page, so if you're the sort to have regrets, write that url down now.
+        </h4>
     </span>
     
 {% endif %}
@@ -20,9 +22,11 @@
 
         <br />
         <div class="sort-and-filter-buttons">
-            <a href="/">All</a>
-            <a href="/boasts">Boasts</a>
-            <a href="/roasts">Roasts</a>
+            <div class="filter-tabs">
+                <a href="/" class='{% if current_path == "/" %}selected-tab {% endif %} filter-tab' >All</a>
+                <a href="/boasts" class='{% if current_path == "/boasts" %}selected-tab {% endif %} filter-tab'>Boasts</a>
+                <a href="/roasts" class='{% if current_path == "/roasts" %}selected-tab {% endif %} filter-tab'>Roasts</a>
+            </div>
             <form action="" method="post">
                 {% csrf_token %} {{ sort_form.as_p }}
             <input type="submit" value="Sort posts" />
