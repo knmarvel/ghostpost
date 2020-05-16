@@ -22,18 +22,22 @@
 
         <br />
         <div class="sort-and-filter-buttons">
-            <div class="filter-tabs">
-                <a href="/" class='{% if current_path == "/" %}selected-tab {% endif %} filter-tab' >All</a>
-                <a href="/boasts" class='{% if current_path == "/boasts" %}selected-tab {% endif %} filter-tab'>Boasts</a>
-                <a href="/roasts" class='{% if current_path == "/roasts" %}selected-tab {% endif %} filter-tab'>Roasts</a>
-            </div>
+            <ul class="filter-tabs">
+                <li class='{% if current_path == "/" %}selected-tab {% endif %} filter-tab'>
+                    <a href="/" >All</a>
+                </li>
+                <li class='{% if current_path == "/roasts" %}selected-tab {% endif %} filter-tab'>
+                    <a href="/roasts" >Roasts</a>
+                </li>
+                <li class='{% if current_path == "/boasts" %}selected-tab {% endif %} filter-tab'>
+                    <a href="/boasts">Boasts</a>
+                </li>
+            </ul>
             <form action="" method="post">
-                {% csrf_token %} {{ sort_form.as_p }}
+                {% csrf_token %} {{ sort_form }}
             <input type="submit" value="Sort posts" />
             </form>
         </div>
-        <br /> <br />
-        Sorted by {{ sorted_by }}
         {% if ghost_posts %}
             {% for post in ghost_posts %}
             <div class="post-div-{{post.boast}}">

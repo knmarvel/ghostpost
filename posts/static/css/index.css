@@ -6,6 +6,74 @@ body {
     width: 50em;
     margin: auto;
 }
+
+a {
+    color: rgb(59, 59, 59);
+}
+
+.sort-and-filter-buttons {
+    display: flex;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.filter-tabs {
+    text-align: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    line-height: 24px;
+}
+
+.filter-tab {
+    margin: 0 10px;
+    padding: 0 10px;
+    border: 1px solid rgb(201, 201, 201);
+    background: rgb(59, 59, 59);
+    display: inline-block;
+}
+
+.filter-tab a {
+    color: rgb(201, 201, 201);
+}
+
+.selected-tab {
+    background: rgba(201, 201, 201, 75%);
+}
+
+.selected-tab a{
+    color: rgb(59, 59, 59);
+}
+
+.filter-tabs {
+    position: relative;
+}
+
+.filter-tabs:after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    border-bottom: 1px solid rgb(201, 201, 201)
+}
+
+.filter-tabs:before {
+    z-index: 1;
+}
+
+.filter-tab {
+    position: relative;
+    z-index: 0;
+}
+
+.selected-tab {
+    z-index: 2;
+    border-bottom-color: #FFF;
+}
+
+
+
 .delete-post {
     border: 3px solid black;
     background-color: rgba(255, 0, 0, 75%);

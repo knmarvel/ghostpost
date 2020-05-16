@@ -8,14 +8,14 @@ from posts.helpers import private_url_maker
 def index(request):
     html = "index.html"
     ghostpost_form = GhostPostForm()
-    sort_form = SortForm()
     current_sort = Sorter.objects.first()
     ghost_posts = GhostPost.objects.all()
     if "boasts" in request.path:
         ghost_posts = ghost_posts.filter(boast=True)
     if "roasts" in request.path:
         ghost_posts = ghost_posts.filter(boast=False)
-    sorted_by = current_sort.sort_by
+    sort_by = current_sort.sort_by
+    sort_form = SortForm(initial={'sort_by': sort_by})
     if current_sort.sort_by == "new":
         ghost_posts = ghost_posts.order_by("-datetime")
     if current_sort.sort_by == "old":
@@ -33,7 +33,8 @@ def index(request):
                 sort_by = form.cleaned_data.get("sort_by")
                 current_sort.sort_by = sort_by
                 current_sort.save()
-                sorted_by = current_sort.sort_by
+                sort_by = current_sort.sort_by
+                sort_form = SortForm(initial={'sort_by': sort_by})
                 if current_sort.sort_by == "new":
                     ghost_posts = ghost_posts.order_by("-datetime")
                 if current_sort.sort_by == "old":
@@ -42,7 +43,7 @@ def index(request):
                     ghost_posts = sorted(ghost_posts, key=lambda x: -x.score())
                 if current_sort.sort_by == "not":
                     ghost_posts = sorted(ghost_posts, key=lambda x: x.score())
-                return render(request, html, {"current_path": request.path, "sorted_by": sorted_by, "sort_form": sort_form, "ghostpost_form": ghostpost_form, "ghost_posts": ghost_posts})
+                return render(request, html, {"current_path": request.path, "sort_by": sort_by, "sort_form": sort_form, "ghostpost_form": ghostpost_form, "ghost_posts": ghost_posts})
 
         else:
             form = GhostPostForm(request.POST)
@@ -61,9 +62,9 @@ def index(request):
                     private_url=private_url,
                     datetime=datetime
                 )
-                return render(request, html, {"current_path": request.path, "sorted_by": sorted_by, "sort_form": sort_form, "ghostpost_form": ghostpost_form, "ghost_posts": ghost_posts, "private_url": private_url})
+                return render(request, html, {"current_path": request.path, "sort_by": sort_by, "sort_form": sort_form, "ghostpost_form": ghostpost_form, "ghost_posts": ghost_posts, "private_url": private_url})
 
-    return render(request, html, {"current_path": request.path, "sorted_by": sorted_by, "sort_form": sort_form, "ghostpost_form": ghostpost_form, "ghost_posts": ghost_posts})
+    return render(request, html, {"current_path": request.path, "sort_by": sort_by, "sort_form": sort_form, "ghostpost_form": ghostpost_form, "ghost_posts": ghost_posts})
 
 
 def ghostpost_public_detail(request, pk):
