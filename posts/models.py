@@ -15,3 +15,7 @@ class GhostPost(models.Model):
     
     def score(self):
         return (self.upvotes - self.downvotes)
+
+class Sorter(models.Model):
+    sort_by = models.CharField(
+        max_length=3)

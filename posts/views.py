@@ -1,47 +1,69 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
 from datetime import datetime as dt
-from posts.forms import GhostPostForm
-from posts.models import GhostPost
+from posts.forms import GhostPostForm, SortForm
+from posts.models import GhostPost, Sorter
 from posts.helpers import private_url_maker
 
 
 def index(request):
     html = "index.html"
-    empty_form = GhostPostForm()
-    print(request.path)
+    ghostpost_form = GhostPostForm()
+    sort_form = SortForm()
+    current_sort = Sorter.objects.first()
     ghost_posts = GhostPost.objects.all()
     if "boasts" in request.path:
-        ghost_posts = ghost_posts.filter("boast"==True)
+        ghost_posts = ghost_posts.filter(boast=True)
     if "roasts" in request.path:
-        ghost_posts = ghost_posts.filter("boast"==False)
-    if "newest" in request.path:
+        ghost_posts = ghost_posts.filter(boast=False)
+    sorted_by = current_sort.sort_by
+    if current_sort.sort_by == "new":
         ghost_posts = ghost_posts.order_by("-datetime")
-    if "oldest" in request.path:
+    if current_sort.sort_by == "old":
         ghost_posts = ghost_posts.order_by("datetime")
-    if "top" in request.path:
+    if current_sort.sort_by == "hot":
         ghost_posts = sorted(ghost_posts, key=lambda x: -x.score())
-    if "bottom" in request.path:
+    if current_sort.sort_by == "not":
         ghost_posts = sorted(ghost_posts, key=lambda x: x.score())
-    if request.method == "POST":
-        form = GhostPostForm(request.POST)
-        if form.is_valid():
-            boast = form.cleaned_data.get("boast")
-            text = form.cleaned_data.get("text")
-            upvotes = 0
-            downvotes = 0
-            private_url = private_url_maker()
-            datetime = dt.now()
-            GhostPost.objects.create(
-                boast=boast,
-                text=text,
-                upvotes=upvotes,
-                downvotes=downvotes,
-                private_url=private_url,
-                datetime=datetime
-            )
-            return render(request, html, {"current_path": request.path, "empty_form": empty_form, "ghost_posts": ghost_posts, "private_url": private_url})
 
-    return render(request, html, {"current_path": request.path, "empty_form": empty_form, "ghost_posts": ghost_posts})
+    if request.method == "POST":
+        if "sort_by" in request.POST:
+            form = SortForm(request.POST)
+            if form.is_valid():
+                ghost_posts = GhostPost.objects.all()
+                sort_by = form.cleaned_data.get("sort_by")
+                current_sort.sort_by = sort_by
+                current_sort.save()
+                sorted_by = current_sort.sort_by
+                if current_sort.sort_by == "new":
+                    ghost_posts = ghost_posts.order_by("-datetime")
+                if current_sort.sort_by == "old":
+                    ghost_posts = ghost_posts.order_by("datetime")
+                if current_sort.sort_by == "hot":
+                    ghost_posts = sorted(ghost_posts, key=lambda x: -x.score())
+                if current_sort.sort_by == "not":
+                    ghost_posts = sorted(ghost_posts, key=lambda x: x.score())
+                return render(request, html, {"current_path": request.path, "sorted_by": sorted_by, "sort_form": sort_form, "ghostpost_form": ghostpost_form, "ghost_posts": ghost_posts})
+
+        else:
+            form = GhostPostForm(request.POST)
+            if form.is_valid():
+                boast = form.cleaned_data.get("boast")
+                text = form.cleaned_data.get("text")
+                upvotes = 0
+                downvotes = 0
+                private_url = private_url_maker()
+                datetime = dt.now()
+                GhostPost.objects.create(
+                    boast=boast,
+                    text=text,
+                    upvotes=upvotes,
+                    downvotes=downvotes,
+                    private_url=private_url,
+                    datetime=datetime
+                )
+                return render(request, html, {"current_path": request.path, "sorted_by": sorted_by, "sort_form": sort_form, "ghostpost_form": ghostpost_form, "ghost_posts": ghost_posts, "private_url": private_url})
+
+    return render(request, html, {"current_path": request.path, "sorted_by": sorted_by, "sort_form": sort_form, "ghostpost_form": ghostpost_form, "ghost_posts": ghost_posts})
 
 
 def ghostpost_public_detail(request, pk):

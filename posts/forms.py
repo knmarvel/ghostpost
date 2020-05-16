@@ -14,3 +14,15 @@ class GhostPostForm(forms.Form):
 
     def __str__(self):
         return self.text
+
+class SortForm(forms.Form):
+    SORT_CHOICES = [
+        ("new", "Sort by newest"),
+        ("old", "Sort by oldest"),
+        ("hot", "Sort by most upvoted"),
+        ("not", "Sort by most downvoted")
+    ]
+    sort_by = forms.ChoiceField(
+        choices=SORT_CHOICES
+    )
+

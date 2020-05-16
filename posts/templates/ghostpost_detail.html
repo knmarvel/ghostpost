@@ -3,7 +3,7 @@
 <div class="post-div-{{post.boast}}">
     {{ghostpost.pk}}
     {% if private %}
-    <h2 class="delete_post">TO DELETE THIS POST, <a href="{% url 'delete' private_url=ghostpost.private_url%}">CLICK HERE</a></a></h2>
+    <h2 class="delete-post">TO DELETE THIS POST, <a href="{% url 'delete' private_url=ghostpost.private_url%}">CLICK HERE</a></h2>
     {% endif %}
     <br />
     <button class="upvote-button"><a href="{% url 'upvotes_detail' pk=ghostpost.pk %}">Upvote</a></button>

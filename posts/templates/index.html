@@ -1,26 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2 class="hi">Hello there!</h2>
+    <div class="make-ghost-post">
     <h3>Make a ghost post:</h3>
     <div class="ghost-post-form">
     <form action="" method="post">
-        {% csrf_token %} {{ empty_form.as_p }}
+        {% csrf_token %} {{ ghostpost_form.as_p }}
     <input type="submit" value="Post, ghost!" />
-    </div>
     </form>
+    </div>
+    {% if private_url %}
+    <span class="private-url-announcement"> 
+        Please note: to delete your most recent post, go to <a href="ghostpost/{{ private_url }}">ghostpost/{{ private_url }}</a>
+        This message will disappear after any action on this page, so if you're the sort to have regrets, write that url down now.
+    </span>
+    
+{% endif %}
+</div>
     <div class="ghost-posts">
-        {% if private_url %}
-            <span class="private-url-announcement"> 
-                Please note: to delete your most recent post, go to <a href="ghostpost/{{ private_url }}">ghostpost/{{ private_url }}</a>
-                This message will disappear after any action on this page, so if you're the sort to have regrets, write that url down now.
-            </span>
-        {% endif %}
+
         <br />
         <div class="sort-and-filter-buttons">
-        {% if current_path == "/" %}
-        <button><a href=""></a>Sort by newest</button> <button>Sort by highest score</button> <button>Just boasts</button> <button>Just roasts</button>
-        {% endif %}
+            <a href="/">All</a>
+            <a href="/boasts">Boasts</a>
+            <a href="/roasts">Roasts</a>
+            <form action="" method="post">
+                {% csrf_token %} {{ sort_form.as_p }}
+            <input type="submit" value="Sort posts" />
+            </form>
         </div>
+        <br /> <br />
+        Sorted by {{ sorted_by }}
         {% if ghost_posts %}
             {% for post in ghost_posts %}
             <div class="post-div-{{post.boast}}">
