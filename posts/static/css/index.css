@@ -2,6 +2,15 @@ html {
     background-image: url("http://www.vignette2.wikia.nocookie.net/creepypasta/images/8/80/Creepycemetery.jpg/revision/latest?cb=20131013135547");
 }
 
+.delete-post {
+    border: 3px solid black;
+    background-color: rgba(255, 0, 0, 75%);
+}
+
+.make-ghost-post {
+    border: 3px solid black;
+}
+
 .page-title {
     color: rgb(201, 201, 201);
     font-family: Georgia, 'Times New Roman', Times, serif;
@@ -14,6 +23,18 @@ html {
     color: rgb(33, 33, 33);
 }
 
+.post-div-True{
+    background-color: rgba(201, 201, 201, 75%);
+    color: blue;
+}
+
+.post-div-False{
+    background-color: rgba(201, 201, 201, 75%);
+    color: purple;
+}
+.post-type-False, .post-type-True {
+    font-weight: bolder;
+}
 .footer {
     color: rgb(201, 201, 201);
     font-family: Georgia, 'Times New Roman', Times, serif;

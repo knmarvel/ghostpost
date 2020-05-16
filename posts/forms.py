@@ -6,7 +6,7 @@ class GhostPostForm(forms.Form):
         (True, "BOAST"),
         (False, "ROAST")
     ]
-    boast: forms.ChoiceField(
+    boast = forms.ChoiceField(
         widget=forms.RadioSelect,
         choices=BOAST_ROAST_CHOICES
     )
@@ -15,5 +15,14 @@ class GhostPostForm(forms.Form):
     def __str__(self):
         return self.text
 
-class UpvoteForm(forms.Form):
-    pass
+class SortForm(forms.Form):
+    SORT_CHOICES = [
+        ("new", "Sort by newest"),
+        ("old", "Sort by oldest"),
+        ("hot", "Sort by most upvoted"),
+        ("not", "Sort by most downvoted")
+    ]
+    sort_by = forms.ChoiceField(
+        choices=SORT_CHOICES
+    )
+
