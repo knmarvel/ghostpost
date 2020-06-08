@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="post-div-{{post.boast}}">
+<div class="detail post-div-{{post.boast}}">
     {{ghostpost.pk}}
     {% if private %}
     <h2 class="delete-post">TO DELETE THIS POST, <a href="{% url 'delete' private_url=ghostpost.private_url%}">CLICK HERE</a></h2>

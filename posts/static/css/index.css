@@ -148,19 +148,28 @@ https://css-tricks.com/better-tabs-with-round-out-borders/ */
 }
 .upvote-button {
     background: linear-gradient(to bottom, rgb(219, 64, 3) 50%, rgb(247, 72, 3) 75%);
+    margin-left: auto;
+    margin-right: auto;
+    width: 3px;
 }
 
 .downvote-button {
     background: linear-gradient(to bottom, rgb(86, 3, 219) 50%, rgb(97, 3, 247) 75%);
+    margin-left: auto;
+    margin-right: auto;
+    width: 3px;
 }
 
 .upvote-button a, .downvote-button a{
     color: black;
     text-decoration: none;
-    margin: 0px;
-    padding: 0px;
+
+    margin-left: -5;
 }
 
+.detail {
+    display: flexbox;
+}
 .post-div-False{
     background-color: rgba(201, 201, 201, 75%);
     color: purple;

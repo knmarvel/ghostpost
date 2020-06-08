@@ -1,3 +1,3 @@
 {
-    "python.pythonPath": "/Users/nynaeve/Library/Caches/pypoetry/virtualenvs/ghostpost-TrYe_hgC-py3.8/bin:/Users/nynaeve/.pyenv/bin:/Users/nynaeve/.pyenv/shims:/Users/nynaeve/.poetry/bin:/Users/nynaeve/.pyenv/versions/3.8.2/bin:/usr/local/Cellar/pyenv/1.2.18/libexec:/Users/nynaeve/.pyenv/bin:/Users/nynaeve/.pyenv/shims:/Users/nynaeve/.poetry/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/nynaeve/.pyenv/bin:/Users/nynaeve/.pyenv/shims:/Users/nynaeve/.poetry/bin"
+    "python.pythonPath": "poetry"
 }
